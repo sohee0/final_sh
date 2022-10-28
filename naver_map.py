@@ -30,7 +30,6 @@ warnings.filterwarnings('ignore')
 def getNavermap(result):
     
     df = pd.read_csv('./data_tour/관광지명칭.csv',encoding='utf-8') 
-    df['naver_map_review'] = '' # 미리 리뷰 건수 담을 column을 만들어줌 
 
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -42,7 +41,7 @@ def getNavermap(result):
     
         try: 
             wd.get(f'https://map.naver.com/v5/search/{keyword}=14377346.8495072,4186044.6333144,15,0,0,0,dh') # 검색 url 접속 = 검색하기 
-            time.sleep(4) # 중요
+            time.sleep(3) # 중요
 
             
             # wd.switch_to.frame('searchIframe')
@@ -79,9 +78,7 @@ def getNavermap(result):
                 for item in review:
                         print(item.get_text())
                 result.append([review])
-                # df['naver_map_review'][i]=review 
             except: pass
-
       
 
 
@@ -89,9 +86,10 @@ def main():
     result = []
     print('네이버맵크롤링 : ')
     getNavermap(result)
+
     columns = ['review']
     naver_map_review_df = pd.DataFrame(result,columns=columns)
-    naver_map_review_df.to_csv('./data_tour/리뷰건수.csv',encoding='utf-8')
+    naver_map_review_df.to_csv('./data_tour/리뷰건수.csv',encoding='utf-8',index=True)
     print('크롤링끝')
 
 if __name__=='__main__':
