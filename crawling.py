@@ -18,7 +18,7 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
 wd = webdriver.Chrome('./chromedriver.exe')
-word= word = '제주여행'.replace(' ', '+')
+word= word = '부산여행 카페'.replace(' ', '+')
 url = "https://www.youtube.com/results?search_query=" + word
 wd.get(url)
 time.sleep(3)
@@ -64,7 +64,7 @@ def scroll():
 
     df = pd.DataFrame(youtube_dict)
     
-    df.to_csv('제주여행_유튜브.csv', encoding='', index=False)
+    df.to_csv('부산여행카페_유튜브.csv', encoding='', index=False)
 
 
 scroll()
